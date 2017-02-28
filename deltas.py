@@ -111,21 +111,32 @@ def create_normal_order(op_strings):
             del curr_string[pos2]
             del curr_string[pos1]
             curr_string.append(('Delta',i1,i2))
-            #curr_string.append((i1,i2))
             # swap indices
             new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
             new_string.append(('-','-'))
             op_strings.append(new_string)
-   print op_strings
+   #print op_strings
+
+def remove_zero_strings(op_strings):
+   n = len(op_strings)
+   for term in range(n-1,-1,-1):
+      curr_string = op_strings[term]
+      for i in range(0,len(curr_string)):
+         index = curr_string[i][0]
+         if index in ['a','b','c','d']:
+            del op_strings[term]
+            break
 
 all_strings = []
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 all_strings.append(op_string)
 
 create_normal_order(all_strings)
-      
-#print all_strings
+print all_strings
    
+remove_zero_strings(all_strings)
+print all_strings
+
 
 #a = is_normal_ordered(op_string)
 ##print a
