@@ -32,6 +32,13 @@ def is_legitimate(operators):
 
    return legitimate
 
+def first_annihilate(operators):
+   n = len(operators)
+   for pos in range(n-1,-1,-1):
+      operator_character = operators[pos][1]
+      if operator_character == 'annihilate':
+         first_annihilate = pos
+   return first_annihilate
 
 def is_normal_ordered(operators):
    n = len(operators)
@@ -39,18 +46,38 @@ def is_normal_ordered(operators):
       operator_character = operators[pos][1]
       if operator_character == 'create':
          last_create = pos
-   for pos in range(n-1,-1,-1):
-      operator_character = operators[pos][1]
-      if operator_character == 'annihilate':
-         first_annihilate = pos
+   pos_first_annihilate = first_annihilate(operators)
 
-   if last_create > first_annihilate:
+   if last_create > pos_first_annihilate:
       is_normal = False
    else:
       is_normal = True
    return is_normal
 
+def find_next_create(op_string,pos_ann):
+   n = len(op_string)
+   for pos in range(pos_ann,n):
+      operator_character = op_string[pos][1]
+      if operator_character == 'create':
+         pos_create = pos
+         break
+   return pos_create
+
+def find_pos_to_change(operators):
+   first_ann = first_annihilate(operators)
+   pos_create = find_next_create(op_string=operators, pos_ann=first_ann)
+   if (pos_create - first_ann) > 1:
+      pos_ann = pos_create - 1
+   else:
+      pos_ann = first_ann
+   return (pos_ann,pos_create)
+   
+
+
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 
 a = is_normal_ordered(op_string)
-print a
+#print a
+#find_pos_to_change(op_string)
+b = find_pos_to_change(op_string)
+print b
