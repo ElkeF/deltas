@@ -72,6 +72,11 @@ def find_pos_to_change(operators):
       pos_ann = first_ann
    return (pos_ann,pos_create)
    
+def find_indizes_to_change(operators,positions):
+   (pos1,pos2) = positions
+   i1 = operators[pos1][0]
+   i2 = operators[pos2][0]
+   return (i1,i2)
 
 
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
@@ -79,5 +84,7 @@ op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annih
 a = is_normal_ordered(op_string)
 #print a
 #find_pos_to_change(op_string)
-b = find_pos_to_change(op_string)
-print b
+positions = find_pos_to_change(op_string)
+indizes = find_indizes_to_change(op_string,positions)
+print positions
+print indizes
