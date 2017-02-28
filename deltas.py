@@ -35,20 +35,22 @@ def is_legitimate(operators):
 
 def is_normal_ordered(operators):
    n = len(operators)
-   ncreate = 0
-   nannihilate = 0
    for pos in range(0,n):
       operator_character = operators[pos][1]
       if operator_character == 'create':
-         ncreate = ncreate + 1
+         last_create = pos
+   for pos in range(n-1,-1,-1):
+      operator_character = operators[pos][1]
       if operator_character == 'annihilate':
-         nannihilate = nannihilate + 1
-      print operator_character
+         first_annihilate = pos
 
-   print ncreate
-   print nannihilate
+   if last_create > first_annihilate:
+      is_normal = False
+   else:
+      is_normal = True
+   return is_normal
 
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 
-a = is_legitimate(op_string)
+a = is_normal_ordered(op_string)
 print a
