@@ -129,6 +129,7 @@ def remove_zero_strings(op_strings):
             del op_strings[term]
             break
 
+# modified from
 # http://code.activestate.com/recipes/579051-get-the-inversion-number-of-a-permutation/ under MIT license
 def inversion_compared_to_reference(permList,reference):
     """
@@ -149,25 +150,71 @@ def inversion_compared_to_reference(permList,reference):
         permList.remove(reference[n-1])
         return numInversion+inversion_compared_to_reference(permList,reference)
 
+def split_ops_from_deltas(op_string,deltas,ac_ops):
+   n = len(op_string)
+   for op in range(0,n):
+      if (op_string[op][1] == 'create' or op_string[op][1] == 'annihilate'):
+         ac_ops.append(op_string[op])
+      else:
+         deltas.append(op_string[op])
+
+def remove_redundant_perms(perms,reference):
+   n = len(perms)
+   for i in range(n-1,-1,-1):
+      perm = perms[i]
+      n_create = number_create(perm)
+      for j in range(0,n_create*2):
+         ref_pos = j
+         curr_pos = perm.index(reference[j])
+         if (reference[j][1] == 'create'):
+            if not (2*ref_pos == curr_pos):
+               del perms[i]
+               break
+      
+
+def resolve_deltas(op_strings):
+   n_strings = len(op_strings)
+   for string in range(n_strings-1,-1,-1):
+      curr_string = op_strings[string]
+      n = len(curr_string)
+      deltas = []
+      ac_ops = []
+      split_ops_from_deltas(curr_string,deltas,ac_ops)
+      #print 'Deltas', deltas, '\n'
+      #print 'ac_ops', ac_ops, '\n'
+      perms = list(itertools.permutations(ac_ops))
+      remove_redundant_perms(perms,ac_ops)
+      print perms
+      
+         
+
+
+##################################################################
+#                   all functions above this line                #
+##################################################################
+
 all_strings = []
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
 all_strings.append(op_string)
 all_strings.append(op2_string)
 
-#create_normal_order(all_strings)
-##print all_strings
-#   
-#remove_zero_strings(all_strings)
+create_normal_order(all_strings)
+#print all_strings
+   
+remove_zero_strings(all_strings)
 #print all_strings
 
-ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
-a =  itertools.permutations(ex1)
-b = list(a)
-#print b
-n = len(b)
-# test gleich lang vorher
-inv = inversion_compared_to_reference(permList=ex1,reference=ref)
-print inv
+resolve_deltas(all_strings)
+#print all_strings
+
+#ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+#ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
+#a =  itertools.permutations(ex1)
+#b = list(a)
+##print b
+#n = len(b)
+## test gleich lang vorher
+#inv = inversion_compared_to_reference(permList=ex1,reference=ref)
+#print inv
 
