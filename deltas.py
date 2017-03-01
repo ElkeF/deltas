@@ -13,6 +13,8 @@
 # written by:  Elke Fasshauer February 2017                      #
 ##################################################################
 
+import itertools
+
 def number_create(operators):
    n = len(operators)
    ncreate = 0
@@ -127,21 +129,45 @@ def remove_zero_strings(op_strings):
             del op_strings[term]
             break
 
+# http://code.activestate.com/recipes/579051-get-the-inversion-number-of-a-permutation/ under MIT license
+def inversion_compared_to_reference(permList,reference):
+    """
+    Description - This function returns the number of inversions in a
+                  permutation compared to a given order.
+    Preconditions - The parameter permList is a list of unique positve numbers.
+
+    Postconditions - The number of inversions in permList has been returned.
+
+    Input - permList : list, reference list
+    Output - numInversions : int
+    """
+    n = len(permList)
+    if len(permList)==1:
+        return 0
+    else:
+        numInversion=len(permList)-permList.index(reference[n-1])-1
+        permList.remove(reference[n-1])
+        return numInversion+inversion_compared_to_reference(permList,reference)
+
 all_strings = []
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
 all_strings.append(op_string)
+all_strings.append(op2_string)
 
-create_normal_order(all_strings)
-print all_strings
-   
-remove_zero_strings(all_strings)
-print all_strings
+#create_normal_order(all_strings)
+##print all_strings
+#   
+#remove_zero_strings(all_strings)
+#print all_strings
 
+ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
+a =  itertools.permutations(ex1)
+b = list(a)
+#print b
+n = len(b)
+# test gleich lang vorher
+inv = inversion_compared_to_reference(permList=ex1,reference=ref)
+print inv
 
-#a = is_normal_ordered(op_string)
-##print a
-##find_pos_to_change(op_string)
-#positions = find_pos_to_change(op_string)
-#indices = find_indices_to_change(op_string,positions)
-#print positions
-#print indices
