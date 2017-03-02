@@ -291,15 +291,8 @@ create_normal_order(all_strings)
 remove_zero_strings(all_strings)
 
 resolve_deltas(all_strings)
-#print all_strings
-
-test_string = list(all_strings[0])
-#print test_string
-
 
 make_outfile(all_strings,name)
-
-#latex_from_deltas(deltas=test_string,lines=outlines)
 
 
 
