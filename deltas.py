@@ -280,11 +280,17 @@ def make_outfile(all_strings,filename):
 ##################################################################
 
 name = "test.tex"
+
+exc_ia = [('a', 'create'), ('i', 'annihilate')]
+exc_jb = [('b', 'create'), ('j', 'annihilate')]
+MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
+MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
+MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
+
 all_strings = []
-op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
-all_strings.append(op_string)
-all_strings.append(op2_string)
+
+MP_norm = MP1_bra_p + MP1_ket
+all_strings.append(MP_norm)
 
 create_normal_order(all_strings)
    
@@ -297,7 +303,11 @@ make_outfile(all_strings,name)
 
 
 
+#ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+#ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
 
-ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
-
+#all_strings = []
+#op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+#op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
+#all_strings.append(op_string)
+#all_strings.append(op2_string)
