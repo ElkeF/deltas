@@ -208,7 +208,8 @@ def perm_to_deltas(permutations,delta_list):
 def resolve_deltas(op_strings):
    n_strings = len(op_strings)
    for string in range(n_strings-1,-1,-1):
-      curr_string = op_strings[string]
+      curr_string = list(op_strings[string])
+      del op_strings[string]
       n = len(curr_string)
       deltas = []
       ac_ops = []
@@ -219,16 +220,15 @@ def resolve_deltas(op_strings):
       remove_redundant_perms(perms,ac_ops)
       for i in range(0,len(perms)):
          all_deltas = deltas[:]
-         print 'all', all_deltas
          perm = list(perms[i])
          n_inv = inversion_compared_to_reference(permList=perm,reference=ac_ops)
          if (n_inv%2 != 0): #odd
             all_deltas.append(('-','-'))
-      #   print all_deltas
       # we now have the signs correct and add the missing Delta functions
          perm = list(perms[i])
          perm_to_deltas(perm,all_deltas)
-         print all_deltas
+         op_strings.append(all_deltas)
+         print op_strings
             
       
          
