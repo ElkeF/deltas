@@ -14,6 +14,7 @@
 ##################################################################
 
 import itertools
+import os
 
 def number_create(operators):
    n = len(operators)
@@ -257,6 +258,7 @@ def make_outfile(all_strings,filename):
    outfile = open(filename, mode="w")
    header = '\n'.join(header_list)
    outfile.write(header)
+   outfile.write('\n')
 
    n = len(all_strings)
    outlines = []
@@ -273,6 +275,11 @@ def make_outfile(all_strings,filename):
 
    outfile.close
    
+def make_deltas(op_strings,name):
+   create_normal_order(op_strings)
+   remove_zero_strings(op_strings)
+   resolve_deltas(op_strings)
+   make_outfile(op_strings,name)
 
 
 ##################################################################
@@ -287,6 +294,8 @@ MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihil
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
 MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
 F = [('p', 'create'), ('q', 'annihilate')]
+V1 = [('p', 'create'), ('r', 'annihilate'), ('s', 'create'), ('q', 'annihilate')]
+V2 = [('p', 'create'), ('q', 'annihilate')]
 
 all_strings = []
 
@@ -294,14 +303,7 @@ MP_norm = MP1_bra_p + MP1_ket
 
 all_strings.append(MP_norm)
 
-create_normal_order(all_strings)
-   
-remove_zero_strings(all_strings)
-
-resolve_deltas(all_strings)
-
-make_outfile(all_strings,name)
-
+make_deltas(all_strings,name)
 
 
 
