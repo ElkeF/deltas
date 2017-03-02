@@ -143,12 +143,38 @@ def inversion_compared_to_reference(permList,reference):
     Output - numInversions : int
     """
     n = len(permList)
+
     if len(permList)==1:
         return 0
     else:
         numInversion=len(permList)-permList.index(reference[n-1])-1
         permList.remove(reference[n-1])
         return numInversion+inversion_compared_to_reference(permList,reference)
+
+def permutations_list(iterable, r=None):
+    # permutations('ABCD', 2) --> AB AC AD BA BC BD CA CB CD DA DB DC
+    # permutations(range(3)) --> 012 021 102 120 201 210
+    pool = tuple(iterable)
+    n = len(pool)
+    r = n if r is None else r
+    if r > n:
+        return
+    indices = range(n)
+    cycles = range(n, n-r, -1)
+    yield list(pool[i] for i in indices[:r])
+    while n:
+        for i in reversed(range(r)):
+            cycles[i] -= 1
+            if cycles[i] == 0:
+                indices[i:] = indices[i+1:] + indices[i:i+1]
+                cycles[i] = n - i
+            else:
+                j = cycles[i]
+                indices[i], indices[-j] = indices[-j], indices[i]
+                yield list(pool[i] for i in indices[:r])
+                break
+        else:
+            return
 
 def split_ops_from_deltas(op_string,deltas,ac_ops):
    n = len(op_string)
@@ -171,6 +197,13 @@ def remove_redundant_perms(perms,reference):
                del perms[i]
                break
       
+def perm_to_deltas(permutations,delta_list):
+   n = len(permutations)
+   for i in range(n-1,-1,-2):
+      first = permutations[i][0]
+      second = permutations[i-1][0]
+      delta_list.append(('Delta',first,second))
+      #print delta_list
 
 def resolve_deltas(op_strings):
    n_strings = len(op_strings)
@@ -182,9 +215,21 @@ def resolve_deltas(op_strings):
       split_ops_from_deltas(curr_string,deltas,ac_ops)
       #print 'Deltas', deltas, '\n'
       #print 'ac_ops', ac_ops, '\n'
-      perms = list(itertools.permutations(ac_ops))
+      perms = list(permutations_list(ac_ops))
       remove_redundant_perms(perms,ac_ops)
-      print perms
+      for i in range(0,len(perms)):
+         all_deltas = deltas[:]
+         print 'all', all_deltas
+         perm = list(perms[i])
+         n_inv = inversion_compared_to_reference(permList=perm,reference=ac_ops)
+         if (n_inv%2 != 0): #odd
+            all_deltas.append(('-','-'))
+      #   print all_deltas
+      # we now have the signs correct and add the missing Delta functions
+         perm = list(perms[i])
+         perm_to_deltas(perm,all_deltas)
+         print all_deltas
+            
       
          
 
@@ -208,11 +253,13 @@ remove_zero_strings(all_strings)
 resolve_deltas(all_strings)
 #print all_strings
 
-#ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-#ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
+ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
 #a =  itertools.permutations(ex1)
 #b = list(a)
-##print b
+#print b
+#c = list(permutations_list(ex1))
+#print c
 #n = len(b)
 ## test gleich lang vorher
 #inv = inversion_compared_to_reference(permList=ex1,reference=ref)
