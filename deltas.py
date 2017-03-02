@@ -228,16 +228,58 @@ def resolve_deltas(op_strings):
          perm = list(perms[i])
          perm_to_deltas(perm,all_deltas)
          op_strings.append(all_deltas)
-         print op_strings
             
-      
-         
+def latex_from_deltas(deltas,lines):
+   n_deltas = len(deltas)
+   minus_signs = deltas.count(('-','-'))
+   if (minus_signs%2 == 0): #even
+      sign = '+'
+   else:
+      sign = '-'
+   deltas.append(sign)
+ 
+   for i in range(n_deltas-1,-1,-1):
+      curr = deltas[i]
+      if (curr == ('-','-')):
+         del deltas[i]
+      else:
+         first = deltas[i][1]
+         sec   = deltas[i][2]
+         del deltas[i]
+         delta = r'\delta_{' + first + sec + '}'
+         deltas.append(delta)
+   string = ' '.join(deltas) + '\n'
+   lines.append(string)
+
+
+def make_outfile(all_strings,filename):
+   header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}','\n',r'\begin{document}','\n',r'\begin{equation*}']
+   outfile = open(filename, mode="w")
+   header = '\n'.join(header_list)
+   outfile.write(header)
+
+   n = len(all_strings)
+   outlines = []
+   for i in range(0,n):
+      curr = all_strings[i]
+      latex_from_deltas(deltas=curr,lines=outlines)
+
+   res_lines = ''.join(outlines)
+   outfile.write(res_lines)
+
+   bottom_list = [r'\end{equation*}','\n',r'\end{document}']
+   bottom = '\n'.join(bottom_list)
+   outfile.write(bottom)
+
+   outfile.close
+   
 
 
 ##################################################################
 #                   all functions above this line                #
 ##################################################################
 
+name = "test.tex"
 all_strings = []
 op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
@@ -245,23 +287,24 @@ all_strings.append(op_string)
 all_strings.append(op2_string)
 
 create_normal_order(all_strings)
-#print all_strings
    
 remove_zero_strings(all_strings)
-#print all_strings
 
 resolve_deltas(all_strings)
 #print all_strings
 
+test_string = list(all_strings[0])
+#print test_string
+
+
+make_outfile(all_strings,name)
+
+#latex_from_deltas(deltas=test_string,lines=outlines)
+
+
+
+
+
 ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
-#a =  itertools.permutations(ex1)
-#b = list(a)
-#print b
-#c = list(permutations_list(ex1))
-#print c
-#n = len(b)
-## test gleich lang vorher
-#inv = inversion_compared_to_reference(permList=ex1,reference=ref)
-#print inv
 
