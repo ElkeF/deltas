@@ -286,10 +286,12 @@ exc_jb = [('b', 'create'), ('j', 'annihilate')]
 MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
 MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
+F = [('p', 'create'), ('q', 'annihilate')]
 
 all_strings = []
 
 MP_norm = MP1_bra_p + MP1_ket
+
 all_strings.append(MP_norm)
 
 create_normal_order(all_strings)
