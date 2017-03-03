@@ -92,6 +92,18 @@ def find_indices_to_change(operators,positions):
    i2 = operators[pos2][0]
    return (i1,i2)
 
+def diff_spaces(op_string,pos1,pos2):
+   first = op_string[pos1][0]
+   sec   = op_string[pos2][0]
+   first_occ = (first in ['i','j','k','l','m','n'])
+   first_virt = (first in ['a','b','c','d','e','f'])
+   sec_occ = (sec in ['i','j','k','l','m','n'])
+   sec_virt = (sec in ['a','b','c','d','e','f'])
+   if ((first_occ and sec_virt) or (first_virt and sec_occ)):
+      return True
+   else:
+      return False
+
 def create_normal_order(op_strings):
    "operates on a list of operator strings"
    ncreate = number_create(op_strings[0])
@@ -113,16 +125,19 @@ def create_normal_order(op_strings):
             new_string = ac_ops[:] + deltas[:]
             (i1,i2) = indices
             (pos1,pos2) = positions
-            # Delta function
             del op_strings[i]
-            del ac_ops[pos2]
-            del ac_ops[pos1]
-            new_delta = ac_ops[:] + deltas[:]
-            new_delta.append(('Delta',i1,i2))
-            op_strings.append(new_delta)
-            # swap indices
-            new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
-            new_string.append(('-','-'))
+            if (diff_spaces(ac_ops,pos1,pos2) == True):
+               new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
+            else:
+               # Delta function
+               del ac_ops[pos2]
+               del ac_ops[pos1]
+               new_delta = ac_ops[:] + deltas[:]
+               new_delta.append(('Delta',i1,i2))
+               op_strings.append(new_delta)
+               # swap indices
+               new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
+               new_string.append(('-','-'))
             op_strings.append(new_string)
    #print op_strings
 
@@ -274,6 +289,10 @@ def make_outfile(all_strings,filename):
 
    res_lines = '\n'.join(outlines)
    outfile.write(res_lines)
+
+   if (n == 0):
+     outfile.write('0')
+
    outfile.write('\n')
 
    bottom_list = [r'\end{align}','\n',r'\end{document}']
@@ -307,20 +326,22 @@ V2 = [('p', 'create'), ('q', 'annihilate')]
 all_strings = []
 
 #MP_norm = MP1_bra_p + MP1_ket
+#name = 'norm-MP1.tex'
 #all_strings.append(MP_norm)
+
 
 ###################################################################
 # B - Matrix
 ###################################################################
 
-#<SCF| F |SCF>
-comm1 = exc_ia + F + exc_jb
-comm2 = F + exc_ia + exc_jb
-comm2.append(('-','-'))
-comm3 = exc_jb + exc_ia + V1
-comm3.append(('-','-'))
-comm4 = exc_jb + F + exc_ia
-name = 'SCF-F-SCF.tex'
+##<SCF| F |SCF>
+#comm1 = exc_ia + F + exc_jb
+#comm2 = F + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = exc_jb + F + exc_ia
+#name = 'SCF-F-SCF.tex'
 
 ##<SCF| V2 |SCF>
 #comm1 = exc_ia + V2 + exc_jb
@@ -387,14 +408,14 @@ name = 'SCF-F-SCF.tex'
 #comm4 = exc_jb + V2 + exc_ia + MP1_ket
 #name = 'SCF-V2-MP1.tex'
 
-##<SCF| V1 |MP1>
-#comm1 = exc_ia + V1 + exc_jb + MP1_ket
-#comm2 = V1 + exc_ia + exc_jb + MP1_ket
-#comm2.append(('-','-'))
-#comm3 = exc_jb + exc_ia + V1 + MP1_ket
-#comm3.append(('-','-'))
-#comm4 = exc_jb + V1 + exc_ia + MP1_ket
-#name = 'SCF-V1-MP1.tex'
+#<SCF| V1 |MP1>
+comm1 = exc_ia + V1 + exc_jb + MP1_ket
+comm2 = V1 + exc_ia + exc_jb + MP1_ket
+comm2.append(('-','-'))
+comm3 = exc_jb + exc_ia + V1 + MP1_ket
+comm3.append(('-','-'))
+comm4 = exc_jb + V1 + exc_ia + MP1_ket
+name = 'SCF-V1-MP1.tex'
 
 all_strings.append(comm1)
 all_strings.append(comm2)
@@ -409,11 +430,11 @@ make_deltas(all_strings,name)
 #ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 #ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
 #
-#all_strings = []
-#op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
-#op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
-#
-#
+all_strings = []
+op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
+op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
+
+
 #all_strings.append(op_string)
 #all_strings.append(op2_string)
 
