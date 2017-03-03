@@ -98,22 +98,28 @@ def create_normal_order(op_strings):
    maxperm = ncreate**4
    for perm in range(0,maxperm):
       n_strings = len(op_strings)
-      for i in range(0,n_strings):
+      for i in range(n_strings-1,-1,-1):
          curr_string = op_strings[i]
+         ac_ops = []
+         deltas = []
+         split_ops_from_deltas(curr_string,deltas,ac_ops)
          if (is_legitimate(curr_string) == False):
             print 'Non-legitimate string'
             break
 
          if (is_normal_ordered(curr_string) == False):
-            positions = find_pos_to_change(curr_string)
-            indices = find_indices_to_change(curr_string,positions)
-            new_string = curr_string[:]
+            positions = find_pos_to_change(ac_ops)
+            indices = find_indices_to_change(ac_ops,positions)
+            new_string = ac_ops[:] + deltas[:]
             (i1,i2) = indices
             (pos1,pos2) = positions
             # Delta function
-            del curr_string[pos2]
-            del curr_string[pos1]
-            curr_string.append(('Delta',i1,i2))
+            del op_strings[i]
+            del ac_ops[pos2]
+            del ac_ops[pos1]
+            new_delta = ac_ops[:] + deltas[:]
+            new_delta.append(('Delta',i1,i2))
+            op_strings.append(new_delta)
             # swap indices
             new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
             new_string.append(('-','-'))
@@ -307,11 +313,19 @@ make_deltas(all_strings,name)
 
 
 
-#ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-#ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
+ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
 
-#all_strings = []
-#op_string = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-#op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
-#all_strings.append(op_string)
+all_strings = []
+op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
+op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
+
+
+all_strings.append(op_string)
 #all_strings.append(op2_string)
+
+#print all_strings, '\n'
+#create_normal_order(all_strings)
+#print all_strings
+
+
