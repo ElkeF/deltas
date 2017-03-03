@@ -255,12 +255,12 @@ def latex_from_deltas(deltas,lines):
          del deltas[i]
          delta = r'\delta_{' + first + sec + '}'
          deltas.append(delta)
-   string = ' '.join(deltas) + '\n'
+   string = ' & ' + ' '.join(deltas) + r'\\'
    lines.append(string)
 
 
 def make_outfile(all_strings,filename):
-   header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}','\n',r'\begin{document}','\n',r'\begin{equation*}']
+   header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}','\n',r'\begin{document}','\n','\section*{'+name+'}','\n',r'\begin{align}']
    outfile = open(filename, mode="w")
    header = '\n'.join(header_list)
    outfile.write(header)
@@ -272,10 +272,11 @@ def make_outfile(all_strings,filename):
       curr = all_strings[i]
       latex_from_deltas(deltas=curr,lines=outlines)
 
-   res_lines = ''.join(outlines)
+   res_lines = '\n'.join(outlines)
    outfile.write(res_lines)
+   outfile.write('\n')
 
-   bottom_list = [r'\end{equation*}','\n',r'\end{document}']
+   bottom_list = [r'\end{align}','\n',r'\end{document}']
    bottom = '\n'.join(bottom_list)
    outfile.write(bottom)
 
@@ -292,36 +293,128 @@ def make_deltas(op_strings,name):
 #                   all functions above this line                #
 ##################################################################
 
-name = "test.tex"
-
 exc_ia = [('a', 'create'), ('i', 'annihilate')]
 exc_jb = [('b', 'create'), ('j', 'annihilate')]
+deexc_ia = [('i', 'annihilate'),('a', 'create')]
+deexc_jb = [('j', 'annihilate'),('b', 'create')]
 MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
 MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
 F = [('p', 'create'), ('q', 'annihilate')]
-V1 = [('p', 'create'), ('r', 'annihilate'), ('s', 'create'), ('q', 'annihilate')]
+V1 = [('p', 'create'), ('r', 'create'), ('s', 'annihilate'), ('q', 'annihilate')]
 V2 = [('p', 'create'), ('q', 'annihilate')]
 
 all_strings = []
 
-MP_norm = MP1_bra_p + MP1_ket
+#MP_norm = MP1_bra_p + MP1_ket
+#all_strings.append(MP_norm)
 
-all_strings.append(MP_norm)
+###################################################################
+# B - Matrix
+###################################################################
+
+#<SCF| F |SCF>
+comm1 = exc_ia + F + exc_jb
+comm2 = F + exc_ia + exc_jb
+comm2.append(('-','-'))
+comm3 = exc_jb + exc_ia + V1
+comm3.append(('-','-'))
+comm4 = exc_jb + F + exc_ia
+name = 'SCF-F-SCF.tex'
+
+##<SCF| V2 |SCF>
+#comm1 = exc_ia + V2 + exc_jb
+#comm2 = V2 + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V2
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V2 + exc_ia
+#name = 'SCF-V2-SCF.tex'
+
+##<SCF| V1 |SCF>
+#comm1 = exc_ia + V1 + exc_jb
+#comm2 = V1 + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + exc_ia
+#name = 'MP1-V1-SCF.tex'
+#-------------------------------------------------------
+
+##<MP1| F |SCF>
+#comm1 = MP1_bra + exc_ia + F + exc_jb
+#comm2 = MP1_bra + F + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + exc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + F + exc_ia
+#name = 'MP1-F-SCF.tex'
+
+##<MP1| V2 |SCF>
+#comm1 = MP1_bra + exc_ia + V2 + exc_jb
+#comm2 = MP1_bra + V2 + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + exc_ia + V2
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + V2 + exc_ia
+#name = 'MP1-V2-SCF.tex'
+
+##<MP1| V1 |SCF>
+#comm1 = MP1_bra + exc_ia + V1 + exc_jb
+#comm2 = MP1_bra + V1 + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + exc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + V1 + exc_ia
+#name = 'MP1-V1-SCF.tex'
+#-------------------------------------------------------
+
+##<SCF| F |MP1>
+#comm1 = exc_ia + F + exc_jb + MP1_ket
+#comm2 = F + exc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + F + exc_ia + MP1_ket
+#name = 'SCF-F-MP1.tex'
+
+##<SCF| V2 |MP1>
+#comm1 = exc_ia + V2 + exc_jb + MP1_ket
+#comm2 = V2 + exc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V2 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V2 + exc_ia + MP1_ket
+#name = 'SCF-V2-MP1.tex'
+
+##<SCF| V1 |MP1>
+#comm1 = exc_ia + V1 + exc_jb + MP1_ket
+#comm2 = V1 + exc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + exc_ia + MP1_ket
+#name = 'SCF-V1-MP1.tex'
+
+all_strings.append(comm1)
+all_strings.append(comm2)
+all_strings.append(comm3)
+all_strings.append(comm4)
+#print all_strings
 
 make_deltas(all_strings,name)
 
 
 
-ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
-ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
-
-all_strings = []
-op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
-op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
-
-
-all_strings.append(op_string)
+#ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
+#ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
+#
+#all_strings = []
+#op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
+#op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
+#
+#
+#all_strings.append(op_string)
 #all_strings.append(op2_string)
 
 #print all_strings, '\n'
