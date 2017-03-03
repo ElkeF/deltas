@@ -275,7 +275,7 @@ def latex_from_deltas(deltas,lines):
 
 
 def make_outfile(all_strings,filename):
-   header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}','\n',r'\begin{document}','\n','\section*{'+name+'}','\n',r'\begin{align}']
+   header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}',r'\allowdisplaybreaks','\n',r'\begin{document}','\n','\section*{'+name+'}','\n',r'\begin{align}']
    outfile = open(filename, mode="w")
    header = '\n'.join(header_list)
    outfile.write(header)
