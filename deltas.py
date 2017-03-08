@@ -270,6 +270,7 @@ def latex_from_deltas(deltas,lines):
          del deltas[i]
          delta = r'\delta_{' + first + sec + '}'
          deltas.append(delta)
+   deltas.sort()
    string = ' & ' + ' '.join(deltas) + r'\\'
    lines.append(string)
 
@@ -287,7 +288,9 @@ def make_outfile(all_strings,filename):
       curr = all_strings[i]
       latex_from_deltas(deltas=curr,lines=outlines)
 
+   outlines.sort()
    res_lines = '\n'.join(outlines)
+   print res_lines
    outfile.write(res_lines)
 
    if (n == 0):
@@ -359,17 +362,17 @@ all_strings = []
 #comm3 = exc_jb + exc_ia + V1
 #comm3.append(('-','-'))
 #comm4 = exc_jb + V1 + exc_ia
-#name = 'MP1-V1-SCF.tex'
+#name = 'SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
 ##<MP1| F |SCF>
-#comm1 = MP1_bra + exc_ia + F + exc_jb
-#comm2 = MP1_bra + F + exc_ia + exc_jb
-#comm2.append(('-','-'))
-#comm3 = MP1_bra + exc_jb + exc_ia + V1
-#comm3.append(('-','-'))
-#comm4 = MP1_bra + exc_jb + F + exc_ia
-#name = 'MP1-F-SCF.tex'
+comm1 = MP1_bra + exc_ia + F + exc_jb
+comm2 = MP1_bra + F + exc_ia + exc_jb
+comm2.append(('-','-'))
+comm3 = MP1_bra + exc_jb + exc_ia + F
+comm3.append(('-','-'))
+comm4 = MP1_bra + exc_jb + F + exc_ia
+name = 'MP1-F-SCF.tex'
 
 ##<MP1| V2 |SCF>
 #comm1 = MP1_bra + exc_ia + V2 + exc_jb
@@ -408,14 +411,14 @@ all_strings = []
 #comm4 = exc_jb + V2 + exc_ia + MP1_ket
 #name = 'SCF-V2-MP1.tex'
 
-#<SCF| V1 |MP1>
-comm1 = exc_ia + V1 + exc_jb + MP1_ket
-comm2 = V1 + exc_ia + exc_jb + MP1_ket
-comm2.append(('-','-'))
-comm3 = exc_jb + exc_ia + V1 + MP1_ket
-comm3.append(('-','-'))
-comm4 = exc_jb + V1 + exc_ia + MP1_ket
-name = 'SCF-V1-MP1.tex'
+##<SCF| V1 |MP1>
+#comm1 = exc_ia + V1 + exc_jb + MP1_ket
+#comm2 = V1 + exc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + exc_ia + MP1_ket
+#name = 'SCF-V1-MP1.tex'
 
 all_strings.append(comm1)
 all_strings.append(comm2)
@@ -427,12 +430,13 @@ make_deltas(all_strings,name)
 
 
 
+
 #ref = [('a', 'create'), ('i', 'annihilate'), ('b', 'create'), ('j', 'annihilate')]
 #ex1 = [('b', 'create'), ('j', 'annihilate'), ('a', 'create'), ('i', 'annihilate')]
 #
-all_strings = []
-op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
-op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
+#all_strings = []
+#op_string = [('a', 'create'), ('i', 'annihilate'), ('Delta','p','q'), ('b', 'create'), ('j', 'annihilate')]
+#op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'annihilate')]
 
 
 #all_strings.append(op_string)
@@ -440,6 +444,10 @@ op2_string = [('p', 'create'), ('r', 'annihilate'), ('q', 'create'), ('s', 'anni
 
 #print all_strings, '\n'
 #create_normal_order(all_strings)
-#print all_strings
+#remove_zero_strings(all_strings)
+#print len(all_strings)
+#for i in range(0,len(all_strings)):
+#   print all_strings[i], '\n'
+
 
 
