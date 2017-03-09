@@ -274,6 +274,31 @@ def latex_from_deltas(deltas,lines):
    string = ' & ' + ' '.join(deltas) + r'\\'
    lines.append(string)
 
+def rm_plus_minus(lines,outlines):
+   plus = []
+   minus = []
+   for i in range(0,len(lines)):
+      if ('+' in lines[i]):
+         plus.append(lines[i])
+      elif ('-' in lines[i]):
+         minus.append(lines[i])
+   for j in range(len(plus)-1,-1,-1):
+      curr_plus = plus[j]
+      tmp_plus = curr_plus.translate(None,'&')
+      red_plus = tmp_plus.translate(None,'+')
+      for k in range(0,len(minus)):
+         curr_minus = minus[k]
+         tmp_minus = curr_minus.translate(None,'&')
+         red_minus = tmp_minus.translate(None,'-')
+         if (red_plus == red_minus):
+            del plus[j]
+            del minus[k]
+            break
+   for j in range(0,len(plus)):
+      outlines.append(plus[j])
+   for k in range(0,len(minus)):
+      outlines.append(minus[k])
+
 
 def make_outfile(all_strings,filename):
    header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}',r'\allowdisplaybreaks','\n',r'\begin{document}','\n','\section*{'+name+'}','\n',r'\begin{align}']
@@ -283,14 +308,16 @@ def make_outfile(all_strings,filename):
    outfile.write('\n')
 
    n = len(all_strings)
-   outlines = []
+   latexlines = []
    for i in range(0,n):
       curr = all_strings[i]
-      latex_from_deltas(deltas=curr,lines=outlines)
+      latex_from_deltas(deltas=curr,lines=latexlines)
 
+   outlines = []
+   rm_plus_minus(latexlines,outlines)
    outlines.sort()
    res_lines = '\n'.join(outlines)
-   print res_lines
+   #print res_lines
    outfile.write(res_lines)
 
    if (n == 0):
