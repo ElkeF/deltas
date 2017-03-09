@@ -127,7 +127,10 @@ def create_normal_order(op_strings):
             (pos1,pos2) = positions
             del op_strings[i]
             if (diff_spaces(ac_ops,pos1,pos2) == True):
+               #print new_string
                new_string[pos1], new_string[pos2] = new_string[pos2], new_string[pos1]
+               new_string.append(('-','-'))
+               #print new_string, '\n'
             else:
                # Delta function
                del ac_ops[pos2]
@@ -320,7 +323,7 @@ def make_outfile(all_strings,filename):
    #print res_lines
    outfile.write(res_lines)
 
-   if (n == 0):
+   if (len(res_lines) == 0):
      outfile.write('0')
 
    outfile.write('\n')
@@ -392,14 +395,15 @@ all_strings = []
 #name = 'SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
-##<MP1| F |SCF>
-comm1 = MP1_bra + exc_ia + F + exc_jb
-comm2 = MP1_bra + F + exc_ia + exc_jb
-comm2.append(('-','-'))
-comm3 = MP1_bra + exc_jb + exc_ia + F
-comm3.append(('-','-'))
-comm4 = MP1_bra + exc_jb + F + exc_ia
-name = 'MP1-F-SCF.tex'
+###<MP1| F |SCF>
+#comm1 = MP1_bra + exc_ia + F + exc_jb
+#comm2 = MP1_bra + F + exc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + exc_ia + F
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + F + exc_ia
+#name = 'MP1-F-SCF.tex'
+
 
 ##<MP1| V2 |SCF>
 #comm1 = MP1_bra + exc_ia + V2 + exc_jb
