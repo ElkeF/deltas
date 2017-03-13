@@ -150,7 +150,7 @@ def remove_zero_strings(op_strings):
       curr_string = op_strings[term]
       for i in range(0,len(curr_string)):
          index = curr_string[i][0]
-         if index in ['a','b','c','d']:
+         if index in ['a','b','c','d','e','f']:
             del op_strings[term]
             break
 
@@ -442,14 +442,14 @@ all_strings = []
 #comm4 = exc_jb + V2 + exc_ia + MP1_ket
 #name = 'SCF-V2-MP1.tex'
 
-##<SCF| V1 |MP1>
-#comm1 = exc_ia + V1 + exc_jb + MP1_ket
-#comm2 = V1 + exc_ia + exc_jb + MP1_ket
-#comm2.append(('-','-'))
-#comm3 = exc_jb + exc_ia + V1 + MP1_ket
-#comm3.append(('-','-'))
-#comm4 = exc_jb + V1 + exc_ia + MP1_ket
-#name = 'SCF-V1-MP1.tex'
+#<SCF| V1 |MP1>
+comm1 = exc_ia + V1 + exc_jb + MP1_ket
+comm2 = V1 + exc_ia + exc_jb + MP1_ket
+comm2.append(('-','-'))
+comm3 = exc_jb + exc_ia + V1 + MP1_ket
+comm3.append(('-','-'))
+comm4 = exc_jb + V1 + exc_ia + MP1_ket
+name = 'SCF-V1-MP1.tex'
 
 all_strings.append(comm1)
 all_strings.append(comm2)
