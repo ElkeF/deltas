@@ -233,7 +233,7 @@ def perm_to_deltas(permutations,delta_list):
       #print delta_list
 
 def resolve_deltas(op_strings):
-   print resolve deltas
+   print 'resolve deltas'
    n_strings = len(op_strings)
    for string in range(n_strings-1,-1,-1):
       curr_string = list(op_strings[string])
@@ -458,12 +458,12 @@ all_strings = []
 #######################################################
 
 #<MP1| F |MP1>
-comm1 = MP1_bra_p2 + exc_ia + V1 + exc_jb + MP1_ket
-comm2 = MP1_bra_p2 + V1 + exc_ia + exc_jb + MP1_ket
+comm1 = MP1_bra_p2 + exc_ia + F + exc_jb + MP1_ket
+comm2 = MP1_bra_p2 + F + exc_ia + exc_jb + MP1_ket
 comm2.append(('-','-'))
-comm3 = MP1_bra_p2 + exc_jb + exc_ia + V1 + MP1_ket
+comm3 = MP1_bra_p2 + exc_jb + exc_ia + F + MP1_ket
 comm3.append(('-','-'))
-comm4 = MP1_bra_p2 + exc_jb + V1 + exc_ia + MP1_ket
+comm4 = MP1_bra_p2 + exc_jb + F + exc_ia + MP1_ket
 name = 'MP1-F-MP1.tex'
 
 all_strings.append(comm1)
