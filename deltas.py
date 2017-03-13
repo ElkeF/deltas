@@ -106,6 +106,7 @@ def diff_spaces(op_string,pos1,pos2):
 
 def create_normal_order(op_strings):
    "operates on a list of operator strings"
+   print 'start normal ordering'
    ncreate = number_create(op_strings[0])
    maxperm = ncreate**4
    for perm in range(0,maxperm):
@@ -145,6 +146,7 @@ def create_normal_order(op_strings):
    #print op_strings
 
 def remove_zero_strings(op_strings):
+   print 'remove zero strings'
    n = len(op_strings)
    for term in range(n-1,-1,-1):
       curr_string = op_strings[term]
@@ -231,6 +233,7 @@ def perm_to_deltas(permutations,delta_list):
       #print delta_list
 
 def resolve_deltas(op_strings):
+   print resolve deltas
    n_strings = len(op_strings)
    for string in range(n_strings-1,-1,-1):
       curr_string = list(op_strings[string])
@@ -304,6 +307,7 @@ def rm_plus_minus(lines,outlines):
 
 
 def make_outfile(all_strings,filename):
+   print 'make output file'
    header_list = [r'\documentclass{scrartcl}',r'\usepackage[utf8]{inputenc}',r'\usepackage{amsmath}',r'\allowdisplaybreaks','\n',r'\begin{document}','\n','\section*{'+name+'}','\n',r'\begin{align}']
    outfile = open(filename, mode="w")
    header = '\n'.join(header_list)
@@ -352,6 +356,7 @@ deexc_jb = [('j', 'annihilate'),('b', 'create')]
 MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
 MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
+MP1_bra_p2 = [('m', 'create'), ('e', 'annihilate'), ('n', 'create'), ('f', 'annihilate')]
 F = [('p', 'create'), ('q', 'annihilate')]
 V1 = [('p', 'create'), ('r', 'create'), ('s', 'annihilate'), ('q', 'annihilate')]
 V2 = [('p', 'create'), ('q', 'annihilate')]
@@ -442,14 +447,24 @@ all_strings = []
 #comm4 = exc_jb + V2 + exc_ia + MP1_ket
 #name = 'SCF-V2-MP1.tex'
 
-#<SCF| V1 |MP1>
-comm1 = exc_ia + V1 + exc_jb + MP1_ket
-comm2 = V1 + exc_ia + exc_jb + MP1_ket
+##<SCF| V1 |MP1>
+#comm1 = exc_ia + V1 + exc_jb + MP1_ket
+#comm2 = V1 + exc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + exc_ia + V1 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + exc_ia + MP1_ket
+#name = 'SCF-V1-MP1.tex'
+#######################################################
+
+#<MP1| F |MP1>
+comm1 = MP1_bra_p2 + exc_ia + V1 + exc_jb + MP1_ket
+comm2 = MP1_bra_p2 + V1 + exc_ia + exc_jb + MP1_ket
 comm2.append(('-','-'))
-comm3 = exc_jb + exc_ia + V1 + MP1_ket
+comm3 = MP1_bra_p2 + exc_jb + exc_ia + V1 + MP1_ket
 comm3.append(('-','-'))
-comm4 = exc_jb + V1 + exc_ia + MP1_ket
-name = 'SCF-V1-MP1.tex'
+comm4 = MP1_bra_p2 + exc_jb + V1 + exc_ia + MP1_ket
+name = 'MP1-F-MP1.tex'
 
 all_strings.append(comm1)
 all_strings.append(comm2)
