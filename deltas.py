@@ -392,14 +392,14 @@ all_strings = []
 #comm4 = deexc_jb + V2 + exc_ia
 #name = 'A-SCF-V2-SCF.tex'
 
-##<SCF| V1 |SCF>
-#comm1 = exc_ia + V1 + deexc_jb
-#comm2 = V1 + exc_ia + deexc_jb
-#comm2.append(('-','-'))
-#comm3 = deexc_jb + exc_ia + V1
-#comm3.append(('-','-'))
-#comm4 = deexc_jb + V1 + exc_ia
-#name = 'A-SCF-V1-SCF.tex'
+#<SCF| V1 |SCF>
+comm1 = exc_ia + V1 + deexc_jb
+comm2 = V1 + exc_ia + deexc_jb
+comm2.append(('-','-'))
+comm3 = deexc_jb + exc_ia + V1
+comm3.append(('-','-'))
+comm4 = deexc_jb + V1 + exc_ia
+name = 'A-SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
 ###<MP1| F |SCF>
