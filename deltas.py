@@ -353,7 +353,7 @@ exc_ia = [('a', 'create'), ('i', 'annihilate')]
 exc_jb = [('b', 'create'), ('j', 'annihilate')]
 deexc_ia = [('i', 'create'),('a', 'annihilate')]
 deexc_jb = [('j', 'create'),('b', 'annihilate')]
-deexc_og = [('g', 'create'),('o', 'annihilate')]
+deexc_og = [('o', 'create'),('g', 'annihilate')]
 MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
 MP1_bra_p = [('i', 'create'), ('a', 'annihilate'), ('j', 'create'), ('b', 'annihilate')]
@@ -372,68 +372,48 @@ all_strings = []
 
 
 ###################################################################
-# C - Matrix
+# C tilde - Matrix
 ###################################################################
 
 ##<SCF| F |SCF>
-#comm1 = exc_ia + F + deexc_jb + deexc_og
-#comm2 = F + exc_ia + deexc_jb + deexc_og
+#comm1 = deexc_ia + deexc_jb+ F + + exc_og
+#comm2 = F + deexc_ia + deexc_jb + exc_og
 #comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + F
+#comm3 = exc_og + deexc_ia + deexc_jb + F
 #comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + F + exc_ia
+#comm4 = exc_og + F + deexc_ia + deexc_jb
 #name = 'C-SCF-F-SCF.tex'
 
 ##<SCF| V2 |SCF>
-#comm1 = exc_ia + V2 + deexc_jb + deexc_og
-#comm2 = V2 + exc_ia + deexc_jb + deexc_og
+#comm1 = deexc_ia + deexc_jb + V2 + exc_og
+#comm2 = V2 + deexc_ia + deexc_jb + exc_og
 #comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + V2
+#comm3 = exc_og + deexc_ia + deexc_jb + V2
 #comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + V2 + exc_ia
+#comm4 = exc_og + V2 + deexc_ia + deexc_jb
 #name = 'C-SCF-V2-SCF.tex'
 
 ##<SCF| V1 |SCF>
-#comm1 = exc_ia + V1 + deexc_jb + deexc_og
-#comm2 = V1 + exc_ia + deexc_jb + deexc_og
+#comm1 = deexc_ia + deexc_jb + V1 + exc_og
+#comm2 = V1 + deexc_ia + deexc_jb + exc_og
 #comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + V1
+#comm3 = exc_og + deexc_ia + deexc_jb + V1
 #comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + V1 + exc_ia
+#comm4 = exc_og + V1 + deexc_ia + deexc_jb
 #name = 'C-SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
 ###<MP1| F |SCF>
-#comm1 = MP1_bra + exc_ia + F + deexc_jb + deexc_og
-#comm2 = MP1_bra + F + exc_ia + deexc_jb + deexc_og
+#comm1 = MP1_bra + deexc_ia + deexc_jb + F + exc_og
+#comm2 = MP1_bra + F + deexc_ia + deexc_jb + exc_og
 #comm2.append(('-','-'))
-#comm3 = MP1_bra + deexc_jb + deexc_og + exc_ia + F
+#comm3 = MP1_bra + exc_og + deexc_ia + deexc_jb + F
 #comm3.append(('-','-'))
-#comm4 = MP1_bra + deexc_jb + deexc_og + F + exc_ia
+#comm4 = MP1_bra + exc_og + F + deexc_ia + deexc_jb
 #name = 'C-MP1-F-SCF.tex'
 
-
-##<MP1| V2 |SCF>
-#comm1 = MP1_bra + exc_ia + V2 + deexc_jb + deexc_og
-#comm2 = MP1_bra + V2 + exc_ia + deexc_jb + deexc_og
-#comm2.append(('-','-'))
-#comm3 = MP1_bra + deexc_jb + deexc_og + exc_ia + V2
-#comm3.append(('-','-'))
-#comm4 = MP1_bra + deexc_jb + deexc_og + V2 + exc_ia
-#name = 'C-MP1-V2-SCF.tex'
-
-##<MP1| V1 |SCF>
-#comm1 = MP1_bra + exc_ia + V1 + deexc_jb + deexc_og
-#comm2 = MP1_bra + V1 + exc_ia + deexc_jb + deexc_og
-#comm2.append(('-','-'))
-#comm3 = MP1_bra + deexc_jb + deexc_og + exc_ia + V1
-#comm3.append(('-','-'))
-#comm4 = MP1_bra + deexc_jb + deexc_og + V1 + exc_ia
-#name = 'C-MP1-V1-SCF.tex'
-#-------------------------------------------------------
-
 ##<SCF| F |MP1>
-#comm1 = exc_ia + F + deexc_jb + deexc_og + MP1_ket
+#comm1 = deexc_ia + deexc_jb + F + exc_og + MP1_ket
 #comm2 = F + exc_ia + deexc_jb + deexc_og + MP1_ket
 #comm2.append(('-','-'))
 #comm3 = deexc_jb + deexc_og + exc_ia + F + MP1_ket
@@ -441,52 +421,6 @@ all_strings = []
 #comm4 = deexc_jb + deexc_og + F + exc_ia + MP1_ket
 #name = 'C-SCF-F-MP1.tex'
 
-##<SCF| V2 |MP1>
-#comm1 = exc_ia + V2 + deexc_jb + deexc_og + MP1_ket
-#comm2 = V2 + exc_ia + deexc_jb + deexc_og + MP1_ket
-#comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + V2 + MP1_ket
-#comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + V2 + exc_ia + MP1_ket
-#name = 'C-SCF-V2-MP1.tex'
-
-##<SCF| V1 |MP1>
-#comm1 = exc_ia + V1 + deexc_jb + deexc_og + MP1_ket
-#comm2 = V1 + exc_ia + deexc_jb + deexc_og + MP1_ket
-#comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + V1 + MP1_ket
-#comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + V1 + exc_ia + MP1_ket
-#name = 'C-SCF-V1-MP1.tex'
-#######################################################
-
-#<MP1| F |MP1>
-comm1 = MP1_bra_p2 + exc_ia + F + deexc_jb + deexc_og + MP1_ket
-comm2 = MP1_bra_p2 + F + exc_ia + deexc_jb + deexc_og + MP1_ket
-comm2.append(('-','-'))
-comm3 = MP1_bra_p2 + deexc_jb + deexc_og + exc_ia + F + MP1_ket
-comm3.append(('-','-'))
-comm4 = MP1_bra_p2 + deexc_jb + deexc_og + F + exc_ia + MP1_ket
-name = 'C-MP1-F-MP1.tex'
-#-------------------------------------------------------
-
-##<SCF| F |MP2>
-#comm1 = exc_ia + F + deexc_jb + deexc_og + MP2_ket
-#comm2 = F + exc_ia + deexc_jb + deexc_og + MP2_ket
-#comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + F + MP2_ket
-#comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + F + exc_ia + MP2_ket
-#name = 'C-SCF-F-MP2.tex'
-
-###<MP2| F |SCF>
-#comm1 = MP2_bra_p + exc_ia + F + deexc_jb + deexc_og
-#comm2 = MP2_bra_p + F + exc_ia + deexc_jb + deexc_og
-#comm2.append(('-','-'))
-#comm3 = MP2_bra_p + deexc_jb + deexc_og + exc_ia + F
-#comm3.append(('-','-'))
-#comm4 = MP2_bra_p + deexc_jb + deexc_og + F + exc_ia
-#name = 'C-MP2-F-SCF.tex'
 #-------------------------------------------------------
 
 
