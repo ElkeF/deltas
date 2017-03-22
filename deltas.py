@@ -351,6 +351,7 @@ def make_deltas(op_strings,name):
 
 exc_ia = [('a', 'create'), ('i', 'annihilate')]
 exc_jb = [('b', 'create'), ('j', 'annihilate')]
+exc_og = [('g', 'create'), ('o', 'annihilate')]
 deexc_ia = [('i', 'create'),('a', 'annihilate')]
 deexc_jb = [('j', 'create'),('b', 'annihilate')]
 deexc_og = [('o', 'create'),('g', 'annihilate')]
@@ -376,13 +377,13 @@ all_strings = []
 ###################################################################
 
 ##<SCF| F |SCF>
-#comm1 = deexc_ia + deexc_jb+ F + + exc_og
+#comm1 = deexc_ia + deexc_jb + F + exc_og
 #comm2 = F + deexc_ia + deexc_jb + exc_og
 #comm2.append(('-','-'))
 #comm3 = exc_og + deexc_ia + deexc_jb + F
 #comm3.append(('-','-'))
 #comm4 = exc_og + F + deexc_ia + deexc_jb
-#name = 'C-SCF-F-SCF.tex'
+#name = 'C-tilde-SCF-F-SCF.tex'
 
 ##<SCF| V2 |SCF>
 #comm1 = deexc_ia + deexc_jb + V2 + exc_og
@@ -391,7 +392,7 @@ all_strings = []
 #comm3 = exc_og + deexc_ia + deexc_jb + V2
 #comm3.append(('-','-'))
 #comm4 = exc_og + V2 + deexc_ia + deexc_jb
-#name = 'C-SCF-V2-SCF.tex'
+#name = 'C-tilde-SCF-V2-SCF.tex'
 
 ##<SCF| V1 |SCF>
 #comm1 = deexc_ia + deexc_jb + V1 + exc_og
@@ -400,7 +401,7 @@ all_strings = []
 #comm3 = exc_og + deexc_ia + deexc_jb + V1
 #comm3.append(('-','-'))
 #comm4 = exc_og + V1 + deexc_ia + deexc_jb
-#name = 'C-SCF-V1-SCF.tex'
+#name = 'C-tilde-SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
 ###<MP1| F |SCF>
@@ -410,16 +411,16 @@ all_strings = []
 #comm3 = MP1_bra + exc_og + deexc_ia + deexc_jb + F
 #comm3.append(('-','-'))
 #comm4 = MP1_bra + exc_og + F + deexc_ia + deexc_jb
-#name = 'C-MP1-F-SCF.tex'
+#name = 'C-tilde-MP1-F-SCF.tex'
 
-##<SCF| F |MP1>
-#comm1 = deexc_ia + deexc_jb + F + exc_og + MP1_ket
-#comm2 = F + exc_ia + deexc_jb + deexc_og + MP1_ket
-#comm2.append(('-','-'))
-#comm3 = deexc_jb + deexc_og + exc_ia + F + MP1_ket
-#comm3.append(('-','-'))
-#comm4 = deexc_jb + deexc_og + F + exc_ia + MP1_ket
-#name = 'C-SCF-F-MP1.tex'
+#<SCF| F |MP1>
+comm1 = deexc_ia + deexc_jb + F + exc_og + MP1_ket
+comm2 = F + deexc_ia + deexc_jb + exc_og + MP1_ket
+comm2.append(('-','-'))
+comm3 = exc_og + deexc_ia + deexc_jb + F + MP1_ket
+comm3.append(('-','-'))
+comm4 = exc_og + F + deexc_ia + deexc_jb + MP1_ket
+name = 'C-tilde-SCF-F-MP1.tex'
 
 #-------------------------------------------------------
 
