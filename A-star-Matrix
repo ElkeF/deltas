@@ -1,0 +1,117 @@
+###################################################################
+# A* - Matrix
+###################################################################
+
+##<SCF| F |SCF>
+#comm1 = deexc_ia + F + exc_jb
+#comm2 = F + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + F
+#comm3.append(('-','-'))
+#comm4 = exc_jb + F + deexc_ia
+#name = 'A-star-SCF-F-SCF.tex'
+
+##<SCF| V2 |SCF>
+#comm1 = deexc_ia + V2 + exc_jb
+#comm2 = V2 + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + V2
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V2 + deexc_ia
+#name = 'A-star-SCF-V2-SCF.tex'
+
+##<SCF| V1 |SCF>
+#comm1 = deexc_ia + V1 + exc_jb
+#comm2 = V1 + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + deexc_ia
+#name = 'A-star-SCF-V1-SCF.tex'
+#-------------------------------------------------------
+
+###<MP1| F |SCF>
+#comm1 = MP1_bra + deexc_ia + F + exc_jb
+#comm2 = MP1_bra + F + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + deexc_ia + F
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + F + deexc_ia
+#name = 'A-star-MP1-F-SCF.tex'
+
+
+##<MP1| V2 |SCF>
+#comm1 = MP1_bra + deexc_ia + V2 + exc_jb
+#comm2 = MP1_bra + V2 + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + deexc_ia + V2
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + V2 + deexc_ia
+#name = 'A-star-MP1-V2-SCF.tex'
+
+##<MP1| V1 |SCF>
+#comm1 = MP1_bra + deexc_ia + V1 + exc_jb
+#comm2 = MP1_bra + V1 + deexc_ia + exc_jb
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_jb + deexc_ia + V1
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_jb + V1 + deexc_ia
+#name = 'A-star-MP1-V1-SCF.tex'
+#-------------------------------------------------------
+
+##<SCF| F |MP1>
+#comm1 = deexc_ia + F + exc_jb + MP1_ket
+#comm2 = F + deexc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + F + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + F + deexc_ia + MP1_ket
+#name = 'A-star-SCF-F-MP1.tex'
+
+##<SCF| V2 |MP1>
+#comm1 = deexc_ia + V2 + exc_jb + MP1_ket
+#comm2 = V2 + deexc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + V2 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V2 + deexc_ia + MP1_ket
+#name = 'A-star-SCF-V2-MP1.tex'
+
+##<SCF| V1 |MP1>
+#comm1 = deexc_ia + V1 + exc_jb + MP1_ket
+#comm2 = V1 + deexc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + V1 + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + V1 + deexc_ia + MP1_ket
+#name = 'A-star-SCF-V1-MP1.tex'
+#######################################################
+
+##<MP1| F |MP1>
+#comm1 = MP1_bra_p2 + deexc_ia + F + exc_jb + MP1_ket
+#comm2 = MP1_bra_p2 + F + deexc_ia + exc_jb + MP1_ket
+#comm2.append(('-','-'))
+#comm3 = MP1_bra_p2 + exc_jb + deexc_ia + F + MP1_ket
+#comm3.append(('-','-'))
+#comm4 = MP1_bra_p2 + exc_jb + F + deexc_ia + MP1_ket
+#name = 'A-star-MP1-F-MP1.tex'
+#-------------------------------------------------------
+
+##<SCF| F |MP2>
+#comm1 = deexc_ia + F + exc_jb + MP2_ket
+#comm2 = F + deexc_ia + exc_jb + MP2_ket
+#comm2.append(('-','-'))
+#comm3 = exc_jb + deexc_ia + F + MP2_ket
+#comm3.append(('-','-'))
+#comm4 = exc_jb + F + deexc_ia + MP2_ket
+#name = 'A-star-SCF-F-MP2.tex'
+
+##<MP2| F |SCF>
+comm1 = MP2_bra_p + deexc_ia + F + exc_jb
+comm2 = MP2_bra_p + F + deexc_ia + exc_jb
+comm2.append(('-','-'))
+comm3 = MP2_bra_p + exc_jb + deexc_ia + F
+comm3.append(('-','-'))
+comm4 = MP2_bra_p + exc_jb + F + deexc_ia
+name = 'A-star-MP2-F-SCF.tex'
+#-------------------------------------------------------
