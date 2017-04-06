@@ -1,0 +1,51 @@
+###################################################################
+# C tilde - Matrix
+###################################################################
+
+##<SCF| F |SCF>
+#comm1 = deexc_ia + deexc_jb + F + exc_og
+#comm2 = F + deexc_ia + deexc_jb + exc_og
+#comm2.append(('-','-'))
+#comm3 = exc_og + deexc_ia + deexc_jb + F
+#comm3.append(('-','-'))
+#comm4 = exc_og + F + deexc_ia + deexc_jb
+#name = 'C-tilde-SCF-F-SCF.tex'
+
+##<SCF| V2 |SCF>
+#comm1 = deexc_ia + deexc_jb + V2 + exc_og
+#comm2 = V2 + deexc_ia + deexc_jb + exc_og
+#comm2.append(('-','-'))
+#comm3 = exc_og + deexc_ia + deexc_jb + V2
+#comm3.append(('-','-'))
+#comm4 = exc_og + V2 + deexc_ia + deexc_jb
+#name = 'C-tilde-SCF-V2-SCF.tex'
+
+##<SCF| V1 |SCF>
+#comm1 = deexc_ia + deexc_jb + V1 + exc_og
+#comm2 = V1 + deexc_ia + deexc_jb + exc_og
+#comm2.append(('-','-'))
+#comm3 = exc_og + deexc_ia + deexc_jb + V1
+#comm3.append(('-','-'))
+#comm4 = exc_og + V1 + deexc_ia + deexc_jb
+#name = 'C-tilde-SCF-V1-SCF.tex'
+#-------------------------------------------------------
+
+###<MP1| F |SCF>
+#comm1 = MP1_bra + deexc_ia + deexc_jb + F + exc_og
+#comm2 = MP1_bra + F + deexc_ia + deexc_jb + exc_og
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + exc_og + deexc_ia + deexc_jb + F
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + exc_og + F + deexc_ia + deexc_jb
+#name = 'C-tilde-MP1-F-SCF.tex'
+
+#<SCF| F |MP1>
+comm1 = deexc_ia + deexc_jb + F + exc_og + MP1_ket
+comm2 = F + deexc_ia + deexc_jb + exc_og + MP1_ket
+comm2.append(('-','-'))
+comm3 = exc_og + deexc_ia + deexc_jb + F + MP1_ket
+comm3.append(('-','-'))
+comm4 = exc_og + F + deexc_ia + deexc_jb + MP1_ket
+name = 'C-tilde-SCF-F-MP1.tex'
+
+#-------------------------------------------------------

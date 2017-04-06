@@ -1,0 +1,52 @@
+###################################################################
+# D - Matrix
+###################################################################
+
+##<SCF| F |SCF>
+#comm1 = exc_ia + exc_jb + F + deexc_nf + deexc_og
+#comm2 = F + exc_ia + deexc_jb + deexc_nf + deexc_og
+#comm2.append(('-','-'))
+#comm3 = deexc_nf + deexc_og + exc_ia + exc_jb + F
+#comm3.append(('-','-'))
+#comm4 = deexc_nf + deexc_og + F + exc_ia + exc_jb
+#name = 'D-SCF-F-SCF.tex'
+
+##<SCF| V2 |SCF>
+#comm1 = exc_ia + exc_jb + V2 + deexc_nf + deexc_og
+#comm2 = V2 + exc_ia + exc_jb + deexc_nf + deexc_og
+#comm2.append(('-','-'))
+#comm3 = deexc_nf + deexc_og + exc_ia + exc_jb + V2
+#comm3.append(('-','-'))
+#comm4 = deexc_nf + deexc_og + V2 + exc_ia + exc_jb
+#name = 'D-SCF-V2-SCF.tex'
+
+##<SCF| V1 |SCF>
+#comm1 = exc_ia + exc_jb + V1 + deexc_nf + deexc_og
+#comm2 = V1 + exc_ia + exc_jb + deexc_nf + deexc_og
+#comm2.append(('-','-'))
+#comm3 = deexc_nf + deexc_og + exc_ia + exc_jb + V1
+#comm3.append(('-','-'))
+#comm4 = deexc_nf + deexc_og + V1 + exc_ia + exc_jb
+#name = 'D-SCF-V1-SCF.tex'
+#-------------------------------------------------------
+
+###<MP1| F |SCF>
+#comm1 = MP1_bra + exc_ia + exc_jb + F + deexc_nf + deexc_og
+#comm2 = MP1_bra + F + exc_ia + exc_jb + deexc_nf + deexc_og
+#comm2.append(('-','-'))
+#comm3 = MP1_bra + deexc_nf + deexc_og + exc_ia + exc_jb + F
+#comm3.append(('-','-'))
+#comm4 = MP1_bra + deexc_nf + deexc_og + F + exc_ia + exc_jb
+#name = 'D-MP1-F-SCF.tex'
+
+#-------------------------------------------------------
+
+#<SCF| F |MP1>
+comm1 = exc_ia + exc_jb + F + deexc_nf + deexc_og + MP1_ket
+comm2 = F + exc_ia + exc_jb + deexc_nf + deexc_og + MP1_ket
+comm2.append(('-','-'))
+comm3 = deexc_nf + deexc_og + exc_ia + exc_jb + F + MP1_ket
+comm3.append(('-','-'))
+comm4 = deexc_nf + deexc_og + F + exc_ia + exc_jb + MP1_ket
+name = 'D-SCF-F-MP1.tex'
+#-------------------------------------------------------
