@@ -351,9 +351,11 @@ def make_deltas(op_strings,name):
 
 exc_ia = [('a', 'create'), ('i', 'annihilate')]
 exc_jb = [('b', 'create'), ('j', 'annihilate')]
+exc_nf = [('f', 'create'), ('n', 'annihilate')]
 exc_og = [('g', 'create'), ('o', 'annihilate')]
 deexc_ia = [('i', 'create'),('a', 'annihilate')]
 deexc_jb = [('j', 'create'),('b', 'annihilate')]
+deexc_nf = [('n', 'create'),('f', 'annihilate')]
 deexc_og = [('o', 'create'),('g', 'annihilate')]
 MP1_ket = [('d', 'create'), ('l', 'annihilate'), ('c', 'create'), ('k', 'annihilate')]
 MP1_bra = [('k', 'create'), ('c', 'annihilate'), ('l', 'create'), ('d', 'annihilate')]
@@ -372,63 +374,57 @@ all_strings = []
 #all_strings.append(MP_norm)
 
 
+
 ###################################################################
-# C tilde - Matrix
+# Sigma - Matrix
 ###################################################################
 
-##<SCF| F |SCF>
-#comm1 = deexc_ia + deexc_jb + F + exc_og
-#comm2 = F + deexc_ia + deexc_jb + exc_og
-#comm2.append(('-','-'))
-#comm3 = exc_og + deexc_ia + deexc_jb + F
+##<SCF| op |SCF>
+#comm1 = deexc_ia + exc_jb
+#comm3 = exc_jb + deexc_ia
 #comm3.append(('-','-'))
-#comm4 = exc_og + F + deexc_ia + deexc_jb
-#name = 'C-tilde-SCF-F-SCF.tex'
+#name = 'Sigma-SCF-op-SCF.tex'
 
-##<SCF| V2 |SCF>
-#comm1 = deexc_ia + deexc_jb + V2 + exc_og
-#comm2 = V2 + deexc_ia + deexc_jb + exc_og
-#comm2.append(('-','-'))
-#comm3 = exc_og + deexc_ia + deexc_jb + V2
-#comm3.append(('-','-'))
-#comm4 = exc_og + V2 + deexc_ia + deexc_jb
-#name = 'C-tilde-SCF-V2-SCF.tex'
-
-##<SCF| V1 |SCF>
-#comm1 = deexc_ia + deexc_jb + V1 + exc_og
-#comm2 = V1 + deexc_ia + deexc_jb + exc_og
-#comm2.append(('-','-'))
-#comm3 = exc_og + deexc_ia + deexc_jb + V1
-#comm3.append(('-','-'))
-#comm4 = exc_og + V1 + deexc_ia + deexc_jb
-#name = 'C-tilde-SCF-V1-SCF.tex'
 #-------------------------------------------------------
 
-###<MP1| F |SCF>
-#comm1 = MP1_bra + deexc_ia + deexc_jb + F + exc_og
-#comm2 = MP1_bra + F + deexc_ia + deexc_jb + exc_og
-#comm2.append(('-','-'))
-#comm3 = MP1_bra + exc_og + deexc_ia + deexc_jb + F
+###<MP1| op |SCF>
+#comm1 = MP1_bra + deexc_ia + exc_jb
+#comm3 = MP1_bra + exc_jb + deexc_ia
 #comm3.append(('-','-'))
-#comm4 = MP1_bra + exc_og + F + deexc_ia + deexc_jb
-#name = 'C-tilde-MP1-F-SCF.tex'
+#name = 'Sigma-MP1-op-SCF.tex'
+#-------------------------------------------------------
 
-#<SCF| F |MP1>
-comm1 = deexc_ia + deexc_jb + F + exc_og + MP1_ket
-comm2 = F + deexc_ia + deexc_jb + exc_og + MP1_ket
-comm2.append(('-','-'))
-comm3 = exc_og + deexc_ia + deexc_jb + F + MP1_ket
+##<SCF| op |MP1>
+#comm1 = deexc_ia + exc_jb + MP1_ket
+#comm3 = exc_jb + deexc_ia + MP1_ket
+#comm3.append(('-','-'))
+#name = 'Sigma-SCF-op-MP1.tex'
+#######################################################
+
+##<MP1| op |MP1>
+#comm1 = MP1_bra_p2 + deexc_ia + exc_jb + MP1_ket
+#comm3 = MP1_bra_p2 + exc_jb + deexc_ia + MP1_ket
+#comm3.append(('-','-'))
+#name = 'Sigma-MP1-op-MP1.tex'
+#-------------------------------------------------------
+
+##<SCF| op |MP2>
+#comm1 = deexc_ia + exc_jb + MP2_ket
+#comm3 = exc_jb + deexc_ia + F + MP2_ket
+#comm3.append(('-','-'))
+#name = 'Sigma-SCF-op-MP2.tex'
+
+##<MP2| op |SCF>
+comm1 = MP2_bra_p + deexc_ia + exc_jb
+comm3 = MP2_bra_p + exc_jb + deexc_ia
 comm3.append(('-','-'))
-comm4 = exc_og + F + deexc_ia + deexc_jb + MP1_ket
-name = 'C-tilde-SCF-F-MP1.tex'
-
+name = 'Sigma-MP2-op-SCF.tex'
 #-------------------------------------------------------
-
 
 all_strings.append(comm1)
-all_strings.append(comm2)
+#all_strings.append(comm2)
 all_strings.append(comm3)
-all_strings.append(comm4)
+#all_strings.append(comm4)
 #print all_strings
 
 make_deltas(all_strings,name)
